@@ -12,7 +12,7 @@ const reducer = (state = [], action) => {
 
     switch(action.type){
         case ADD_TODO:
-            return action.text;
+            return [...state, { text:action.text, id: Date.now() }];//we should not mutate state, we must return state
         case DELETE_TODO:
             return [];
         default:
@@ -22,6 +22,9 @@ const reducer = (state = [], action) => {
 };
 
 const store = createStore(reducer);
+
+//subscribe
+store.subscribe(()=> console.log(store.getState()));
 
 const onSubmit = e => {
     e.preventDefault();
